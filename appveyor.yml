@@ -1,18 +1,15 @@
 version: '{build}'
 os: Visual Studio 2015
+platform:
+  - Any CPU
 configuration: Release
 install:
-- ps: >-
-    nuget install GitVersion.CommandLine -ExcludeVersion -OutputDirectory .\buildtools -NonInteractive
-
-    .\buildtools\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo
+  - cmd: nuget install GitVersion.CommandLine -ExcludeVersion -OutputDirectory .\buildtools -NonInteractive
+  - cmd: .\buildtools\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo
+build_script:
+  - cmd: nuget restore Nest.Queryify.sln
+  - cmd: msbuild src/Nest.Queryify.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%"
+  - cmd: nuget pack src/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols
+  - cmd: appveyor PushArtifact "src/Nest.Queryify.%GitVersion_NuGetVersion%.nupkg"
+  - cmd: appveyor PushArtifact "src/Nest.Queryify.%GitVersion_NuGetVersion%.symbols.nupkg"
 cache: packages -> src\packages.config
-nuget:
-  account_feed: true
-before_build:
-- ps: nuget restore Nest.Queryify.sln
-build:
-  publish_nuget: true
-  publish_nuget_symbols: true
-  include_nuget_references: true
-  verbosity: minimal
