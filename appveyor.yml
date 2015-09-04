@@ -6,7 +6,7 @@ install:
   - cmd: .\buildtools\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo /b %APPVEYOR_REPO_BRANCH% /c %APPVEYOR_REPO_COMMIT%
 build_script:
   - cmd: nuget restore Nest.Queryify.sln
-  - cmd: msbuild Nest.Queryify.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%"
+  - cmd: msbuild Nest.Queryify.sln "/p:Configuration=%CONFIGURATION%"
   - cmd: nuget pack src/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols -Properties "Configuration=%CONFIGURATION%" -Verbosity detailed
   - cmd: appveyor PushArtifact "src/Nest.Queryify.%GitVersion_NuGetVersion%.nupkg"
   - cmd: appveyor PushArtifact "src/Nest.Queryify.%GitVersion_NuGetVersion%.symbols.nupkg"
