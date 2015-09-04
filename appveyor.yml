@@ -9,7 +9,7 @@ install:
 build_script:
   - cmd: nuget restore Nest.Queryify.sln
   - cmd: msbuild Nest.Queryify.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%"
-  - cmd: nuget pack src/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols
+  - cmd: nuget pack src/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols -p Configuration=%CONFIGURATION%
   - cmd: appveyor PushArtifact "src/Nest.Queryify.%GitVersion_NuGetVersion%.nupkg"
   - cmd: appveyor PushArtifact "src/Nest.Queryify.%GitVersion_NuGetVersion%.symbols.nupkg"
 cache: packages -> src\packages.config
