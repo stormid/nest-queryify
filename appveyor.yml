@@ -5,7 +5,7 @@ environment:
   solution_path: Nest.Queryify.sln
   project_path: src/Nest.Queryify/Nest.Queryify.csproj
 build:
-  project: '%SOLUTION_PATH%'
+  project: %SOLUTION_PATH%
   verbosity: minimal
 after_build:
   cmd: nuget pack %PROJECT_PATH% -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols -Properties "Configuration=%CONFIGURATION%" -Verbosity detailed
