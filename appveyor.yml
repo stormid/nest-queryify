@@ -4,10 +4,11 @@ configuration: Release
 environment:
   solution_path: Nest.Queryify.sln
   project_path: src/Nest.Queryify/Nest.Queryify.csproj
-build_script:
-  - cmd: nuget restore %SOLUTION_PATH%
-  - cmd: msbuild %SOLUTION_PATH% "/p:Configuration=%CONFIGURATION%"
-  - cmd: nuget pack %PROJECT_PATH% -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols -Properties "Configuration=%CONFIGURATION%" -Verbosity detailed
-  - cmd: appveyor PushArtifact "Nest.Queryify.%GitVersion_NuGetVersion%.nupkg"
-  - cmd: appveyor PushArtifact "Nest.Queryify.%GitVersion_NuGetVersion%.symbols.nupkg"
+build:
+  project: '%SOLUTION_PATH%'
+  verbosity: minimal
+after_build:
+  cmd: nuget pack %PROJECT_PATH% -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols -Properties "Configuration=%CONFIGURATION%" -Verbosity detailed
+artifacts:
+- path: Nest.Queryify.*.nupkg
 cache: packages -> src\packages.config
