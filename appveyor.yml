@@ -1,11 +1,13 @@
 version: '{build}'
 os: Visual Studio 2015
 configuration: Release
+before_build:
+  cmd: nuget restore Nest.Indexify.sln
 build:
   project: Nest.Queryify.sln
   verbosity: minimal
 after_build:
-  cmd: nuget pack src/Nest.Queryify/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Symbols -Properties "Configuration=%CONFIGURATION%" -Verbosity detailed
+  cmd: nuget pack src/Nest.Queryify/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Properties "Configuration=%CONFIGURATION%" -Verbosity quiet
 artifacts:
 - path: Nest.Queryify.*.nupkg
 cache: packages -> src\packages.config
