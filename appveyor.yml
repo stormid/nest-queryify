@@ -1,18 +1,14 @@
 version: '{build}'
+skip_tags: true
 os: Visual Studio 2015
 configuration: Release
-install:
-- ps: >-
-    nuget install GitVersion.CommandLine -ExcludeVersion -OutputDirectory .\buildtools -NonInteractive
-
-    .\buildtools\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo
-cache: packages -> src\packages.config
-nuget:
-  account_feed: true
 before_build:
-- ps: nuget restore Nest.Queryify.sln
+  cmd: nuget restore Nest.Queryify.sln
 build:
-  publish_nuget: true
-  publish_nuget_symbols: true
-  include_nuget_references: true
+  project: Nest.Queryify.sln
   verbosity: minimal
+after_build:
+  cmd: nuget pack src/Nest.Queryify/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Properties "Configuration=%CONFIGURATION%" -Verbosity quiet
+artifacts:
+- path: Nest.Queryify.*.nupkg
+cache: packages -> src\packages.config
