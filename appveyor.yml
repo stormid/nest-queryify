@@ -1,9 +1,6 @@
 version: '{build}'
 os: Visual Studio 2015
 configuration: Release
-install:
-  - cmd: nuget install GitVersion.CommandLine -ExcludeVersion -OutputDirectory .\buildtools -NonInteractive
-  - cmd: .\buildtools\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo /b %APPVEYOR_REPO_BRANCH% /c %APPVEYOR_REPO_COMMIT%
 build_script:
   - cmd: nuget restore Nest.Queryify.sln
   - cmd: msbuild Nest.Queryify.sln "/p:Configuration=%CONFIGURATION%"
