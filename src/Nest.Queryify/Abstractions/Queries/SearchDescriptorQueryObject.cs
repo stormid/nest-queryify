@@ -2,36 +2,36 @@ using System.Threading.Tasks;
 
 namespace Nest.Queryify.Abstractions.Queries
 {
-	public abstract class SearchDescriptorQueryObject<T> : SearchQueryObject<T, T>
-		where T : class
+	public abstract class SearchDescriptorQueryObject<TDocument> : SearchQueryObject<TDocument, TDocument>
+		where TDocument : class
 	{
-		protected override ISearchResponse<T> ExecuteCore(IElasticClient client, string index)
+		protected override ISearchResponse<TDocument> ExecuteCore(IElasticClient client, string index)
 		{
-			return client.Search<T, T>(desc => BuildQuery(desc).Index(index));
+			return client.Search<TDocument, TDocument>(desc => BuildQuery(desc).Index(index));
 		}
 
-	    protected override Task<ISearchResponse<T>> ExecuteCoreAsync(IElasticClient client, string index)
+	    protected override Task<ISearchResponse<TDocument>> ExecuteCoreAsync(IElasticClient client, string index)
 	    {
-            return client.SearchAsync<T, T>(desc => BuildQuery(desc).Index(index));
+            return client.SearchAsync<TDocument, TDocument>(desc => BuildQuery(desc).Index(index));
         }
 
-	    protected abstract SearchDescriptor<T> BuildQuery(SearchDescriptor<T> descriptor);
+	    protected abstract SearchDescriptor<TDocument> BuildQuery(SearchDescriptor<TDocument> descriptor);
 	}
 
-	public abstract class SearchDescriptorQueryObject<T, TReturnAs> : SearchQueryObject<T, TReturnAs>
-		where T : class
-		where TReturnAs : class
+	public abstract class SearchDescriptorQueryObject<TDocument, TReturnDocument> : SearchQueryObject<TDocument, TReturnDocument>
+		where TDocument : class
+		where TReturnDocument : class
     {
-        protected override ISearchResponse<TReturnAs> ExecuteCore(IElasticClient client, string index)
+        protected override ISearchResponse<TReturnDocument> ExecuteCore(IElasticClient client, string index)
         {
-            return client.Search<T, TReturnAs>(desc => BuildQuery(desc).Index(index));
+            return client.Search<TDocument, TReturnDocument>(desc => BuildQuery(desc).Index(index));
         }
 
-	    protected override Task<ISearchResponse<TReturnAs>> ExecuteCoreAsync(IElasticClient client, string index)
+	    protected override Task<ISearchResponse<TReturnDocument>> ExecuteCoreAsync(IElasticClient client, string index)
 	    {
-            return client.SearchAsync<T, TReturnAs>(desc => BuildQuery(desc).Index(index));
+            return client.SearchAsync<TDocument, TReturnDocument>(desc => BuildQuery(desc).Index(index));
         }
 
-	    protected abstract SearchDescriptor<T> BuildQuery(SearchDescriptor<T> descriptor);
+	    protected abstract SearchDescriptor<TDocument> BuildQuery(SearchDescriptor<TDocument> descriptor);
     }
 }

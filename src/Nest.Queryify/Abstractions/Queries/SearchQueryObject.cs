@@ -1,7 +1,8 @@
 namespace Nest.Queryify.Abstractions.Queries
 {
-	public abstract class SearchQueryObject<T, TReturnAs> : ElasticClientQueryObject<ISearchResponse<TReturnAs>>
-		where T : class where TReturnAs : class
+	public abstract class SearchQueryObject<TDocument, TReturnDocument> : ElasticClientQueryObject<ISearchResponse<TReturnDocument>>
+		where TDocument : class 
+        where TReturnDocument : class
 	{
 	}
 }
