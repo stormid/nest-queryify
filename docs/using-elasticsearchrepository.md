@@ -7,7 +7,7 @@ For those new to Nest, or even new to Elasticsearch itself you can use the ```El
 ```
 var uri = new Uri("http://localhost:9200");
 var defaultIndex = "my-application";
-IElasticsearchRepository repository = new ElasticsearchRepository(uri, defaultIndex);
+IElasticsearchRepository repository = new ElasticsearchRepository(defaultIndex, uri);
 
 var query = new GetByIdQuery<MyDocument>("my-identifier");
 IGetResponse<MyDocument> queryResponse = repository.Query(query);
