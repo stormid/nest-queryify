@@ -65,17 +65,17 @@
     <Compile Include="Abstractions\Queries\ElasticClientQueryObject.cs" />
     <Compile Include="Abstractions\Queries\SearchDescriptorQueryObject.cs" />
     <Compile Include="Abstractions\Queries\SearchQueryObject.cs" />
-    <Compile Include="Queries\BulkIndexDocumentQueryObject.cs" />
-    <Compile Include="Queries\Common\DeleteByIdQueryObject.cs" />
-    <Compile Include="Queries\Common\DeleteDocumentQueryObject.cs" />
+    <Compile Include="Queries\BulkIndexDocumentQuery.cs" />
+    <Compile Include="Queries\Common\DeleteByIdQuery.cs" />
+    <Compile Include="Queries\Common\DeleteDocumentQuery.cs" />
     <Compile Include="Queries\Common\GetByIdQuery.cs" />
     <Compile Include="Queries\DeleteWithQueryObject.cs" />
-    <Compile Include="Queries\DocumentExistsByIdQueryObject.cs" />
-    <Compile Include="Queries\DocumentExistsQueryObject.cs" />
-    <Compile Include="Queries\GetQueryObject.cs" />
-    <Compile Include="Queries\IndexDocumentQueryObject.cs" />
-    <Compile Include="Queries\MoreLikeThisDescriptorQueryObject.cs" />
-    <Compile Include="Queries\MultiSearchDescriptorQueryObject.cs" />
+    <Compile Include="Queries\DocumentExistsByIdQuery.cs" />
+    <Compile Include="Queries\DocumentExistsQuery.cs" />
+    <Compile Include="Queries\GetQuery.cs" />
+    <Compile Include="Queries\IndexDocumentQuery.cs" />
+    <Compile Include="Queries\MoreLikeThisDescriptorQuery.cs" />
+    <Compile Include="Queries\MultiSearchDescriptorQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -3,11 +3,11 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries.Common
 {
-	public class DeleteDocumentQueryObject<T> : ElasticClientQueryObject<IDeleteResponse> where T : class
+	public class DeleteDocumentQuery<T> : ElasticClientQueryObject<IDeleteResponse> where T : class
 	{
 		private readonly T _document;
 
-		public DeleteDocumentQueryObject(T document)
+		public DeleteDocumentQuery(T document)
 		{
 			_document = document;
 		}

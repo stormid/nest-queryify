@@ -3,7 +3,7 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries
 {
-    public abstract class GetQueryObject<T> : ElasticClientQueryObject<IGetResponse<T>> where T : class
+    public abstract class GetQuery<T> : ElasticClientQueryObject<IGetResponse<T>> where T : class
     {
         protected override IGetResponse<T> ExecuteCore(IElasticClient client, string index)
         {

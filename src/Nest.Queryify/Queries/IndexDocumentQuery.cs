@@ -3,12 +3,12 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries
 {
-	public class IndexDocumentQueryObject<T> : ElasticClientQueryObject<IIndexResponse> where T : class
+	public class IndexDocumentQuery<T> : ElasticClientQueryObject<IIndexResponse> where T : class
 	{
 		private readonly T _document;
 		private readonly bool _refreshOnSave;
 
-		public IndexDocumentQueryObject(T document, bool refreshOnSave = false)
+		public IndexDocumentQuery(T document, bool refreshOnSave = false)
 		{
 			_document = document;
 			_refreshOnSave = refreshOnSave;

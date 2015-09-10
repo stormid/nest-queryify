@@ -1,6 +1,6 @@
 namespace Nest.Queryify.Queries.Common
 {
-    public class GetByIdQuery<T> : GetQueryObject<T> where T : class
+    public class GetByIdQuery<T> : GetQuery<T> where T : class
     {
         private readonly string _id;
 

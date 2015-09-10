@@ -3,13 +3,13 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries
 {
-	public class DocumentExistsQueryObject<T> : ElasticClientQueryObject<IExistsResponse> where T : class
+	public class DocumentExistsByIdQuery<T> : ElasticClientQueryObject<IExistsResponse> where T : class
 	{
-		private readonly T _document;
+		private readonly string _id;
 
-		public DocumentExistsQueryObject(T document)
+		public DocumentExistsByIdQuery(string id)
 		{
-			_document = document;
+			_id = id;
 		}
 
 		protected override IExistsResponse ExecuteCore(IElasticClient client, string index)
@@ -24,7 +24,7 @@ namespace Nest.Queryify.Queries
 
 	    protected virtual DocumentExistsDescriptor<T> BuildQueryCore(DocumentExistsDescriptor<T> descriptor)
 		{
-			descriptor = descriptor.IdFrom(_document);
+			descriptor = descriptor.Id(_id);
 			return BuildQuery(descriptor);
 		}
 

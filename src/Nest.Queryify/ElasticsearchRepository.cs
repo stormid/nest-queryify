@@ -56,33 +56,33 @@ namespace Nest.Queryify
         {
 			if(document == null) throw new NullReferenceException("indexed document can not be null");
 
-	        return Query(new IndexDocumentQueryObject<T>(document, refreshOnSave.GetValueOrDefault(false)), index);
+	        return Query(new IndexDocumentQuery<T>(document, refreshOnSave.GetValueOrDefault(false)), index);
         }
 
 		public IBulkResponse Bulk<T>(IEnumerable<T> documents, string index = null, bool? refreshOnSave = null) where T : class
         {
-	        return Query(new BulkIndexDocumentQueryObject<T>(documents, refreshOnSave.GetValueOrDefault(false)), index);
+	        return Query(new BulkIndexDocumentQuery<T>(documents, refreshOnSave.GetValueOrDefault(false)), index);
         }
 
         public IDeleteResponse Delete<T>(T document, string index = null) where T : class
         {
-	        return Query(new DeleteDocumentQueryObject<T>(document), index);
+	        return Query(new DeleteDocumentQuery<T>(document), index);
         }
 
 		public IDeleteResponse Delete<T>(string id, string index = null) where T : class
 		{
-			return Query(new DeleteByIdQueryObject<T>(id), index);
+			return Query(new DeleteByIdQuery<T>(id), index);
 		}
 
         public bool Exists<T>(string id, string index = null) where T : class
         {
-	        var response = Query(new DocumentExistsByIdQueryObject<T>(id), index);
+	        var response = Query(new DocumentExistsByIdQuery<T>(id), index);
 	        return response.IsValid && response.Exists;
         }
 
         public bool Exists<T>(T document, string index = null) where T : class
         {
-			var response = Query(new DocumentExistsQueryObject<T>(document), index);
+			var response = Query(new DocumentExistsQuery<T>(document), index);
 			return response.IsValid && response.Exists;
 		}
     }

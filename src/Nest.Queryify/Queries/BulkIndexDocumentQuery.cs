@@ -4,12 +4,12 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries
 {
-	public class BulkIndexDocumentQueryObject<T> : ElasticClientQueryObject<IBulkResponse> where T : class
+	public class BulkIndexDocumentQuery<T> : ElasticClientQueryObject<IBulkResponse> where T : class
 	{
 		private readonly IEnumerable<T> _documents;
 		private readonly bool _refreshOnSave;
 
-		public BulkIndexDocumentQueryObject(IEnumerable<T> documents, bool refreshOnSave)
+		public BulkIndexDocumentQuery(IEnumerable<T> documents, bool refreshOnSave)
 		{
 			_documents = documents;
 			_refreshOnSave = refreshOnSave;

@@ -3,7 +3,7 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries
 {
-    public abstract class MultiSearchDescriptorQueryObject : ElasticClientQueryObject<IMultiSearchResponse>
+    public abstract class MultiSearchDescriptorQuery : ElasticClientQueryObject<IMultiSearchResponse>
     {
         protected override IMultiSearchResponse ExecuteCore(IElasticClient client, string index)
         {
