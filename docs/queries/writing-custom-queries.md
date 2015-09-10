@@ -9,7 +9,7 @@ The example below shows how you can build a query to execute a search and return
 ```c#
 public class MySearchQuery : ElasticClientQueryObject<ISearchResponse<MyDocument>> {
 	protected override TResponse ExecuteCore(IElasticClient client, string index) {
-		return client.SearchAsync<MyDocument>(desc => desc.MatchAll().Index(index));
+		return client.Search<MyDocument>(desc => desc.MatchAll().Index(index));
 	}
 
 	protected override Task<TResponse> ExecuteCoreAsync(IElasticClient client, string index) {
