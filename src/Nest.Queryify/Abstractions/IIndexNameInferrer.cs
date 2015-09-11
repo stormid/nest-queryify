@@ -1,4 +1,4 @@
-namespace Nest.Queryify
+namespace Nest.Queryify.Abstractions
 {
     public interface IIndexNameInferrer
     {

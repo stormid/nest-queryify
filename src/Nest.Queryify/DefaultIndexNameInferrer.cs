@@ -1,4 +1,5 @@
 using System;
+using Nest.Queryify.Abstractions;
 
 namespace Nest.Queryify
 {
