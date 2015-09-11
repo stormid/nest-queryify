@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nest.Queryify", "src\Nest.Queryify\Nest.Queryify.csproj", "{70F41783-BD20-4C56-941A-E370ED41D397}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nest.Queryify.Tests", "Nest.Queryify.Tests\Nest.Queryify.Tests.csproj", "{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nest.Queryify.Tests", "tests\Nest.Queryify.Tests\Nest.Queryify.Tests.csproj", "{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

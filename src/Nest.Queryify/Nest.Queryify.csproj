@@ -78,8 +78,8 @@
     <Compile Include="Queries\MultiSearchQuery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Nest.Queryify.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\GitVersionTask.3.1.2\build\dotnet\GitVersionTask.targets" Condition="Exists('..\..\packages\GitVersionTask.3.1.2\build\dotnet\GitVersionTask.targets')" />
