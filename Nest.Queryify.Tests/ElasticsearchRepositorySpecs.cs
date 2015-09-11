@@ -1,130 +1,323 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Elasticsearch.Net.Connection;
 using FluentAssertions;
+using Moq;
 using Nest.Queryify.Abstractions;
 using Nest.Queryify.Exceptions;
+using Nest.Queryify.Tests.Extensions;
+using Nest.Queryify.Tests.Queries.Fixtures;
+using Nest.Queryify.Tests.TestData;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Nest.Queryify.Tests
 {
-    public abstract class ElasticsearchRepositorySpecs
+    public class ElasticsearchRepositoryGetByIdSpecs
     {
-        public class MyDocument
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryGetByIdSpecs()
         {
-            
-        }
+            var settings = new ConnectionSettings();
 
-        [ElasticType(IdProperty = "Id")]
-        public class MyDocumentWithId
-        {
-            public string Id { get; set; }
-        }
-
-        protected readonly IElasticClient _client;
-        protected readonly IConnectionSettingsValues _connectionSettings;
-        protected readonly InMemoryConnection _inMemoryConnection;
-        protected readonly string _defaultIndex;
-        protected readonly IElasticsearchRepository _repository;
-
-        protected ElasticsearchRepositorySpecs()
-        {
-            _defaultIndex = "my-application";
-            _connectionSettings = new ConnectionSettings(defaultIndex: _defaultIndex);
-            _inMemoryConnection = new InMemoryConnection(_connectionSettings);
-            _inMemoryConnection.Requests.AddRange(ExpectedRequests());
-
-            _client = new ElasticClient(_connectionSettings, _inMemoryConnection);
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidGetResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
             _repository = new ElasticsearchRepository(_client);
+        }
+        
+        [Fact]
+        public void GetById()
+        {
+            var response = _repository.GetById<Person>("1");
+            response.Found.Should().BeTrue();
+            response.Id.Should().Be("1");
+        }
+    }
 
+    public class ElasticsearchRepositoryGetByIdNotFoundSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryGetByIdNotFoundSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.NotFoundGetResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output, 404));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        protected virtual IEnumerable<Tuple<string, Uri, byte[]>> ExpectedRequests()
+        [Fact]
+        public void GetById()
         {
-            _inMemoryConnection.RecordRequests = true;
-            return Enumerable.Empty<Tuple<string, Uri, byte[]>>();
+            var response = _repository.GetById<Person>("1");
+            response.Found.Should().BeFalse();
+            response.Id.Should().Be("1");
+        }
+    }
+
+    public class ElasticsearchRepositoryFindByIdSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryFindByIdSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidGetResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        protected void ShouldUseHttpMethod(string method, int requestIndex = 0)
+        [Fact]
+        public void GetById()
         {
-            _inMemoryConnection.Requests.Count.Should().BeGreaterOrEqualTo(requestIndex + 1);
-            _inMemoryConnection.Requests[requestIndex].Item1.Should().Be(method);
+            var person = _repository.FindById<Person>("1");
+            person.Should().NotBeNull();
+        }
+    }
+
+    public class ElasticsearchRepositoryFindByIdNotFoundSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryFindByIdNotFoundSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.NotFoundGetResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        protected void ShouldUseUri(Uri uri, int requestIndex = 0)
+        [Fact]
+        public void GetById()
         {
-            _inMemoryConnection.Requests.Count.Should().BeGreaterOrEqualTo(requestIndex + 1);
-            _inMemoryConnection.Requests[requestIndex].Item2.Should().Be(uri);
+            var person = _repository.FindById<Person>("1");
+            person.Should().BeNull();
+        }
+    }
+
+    public class ElasticsearchRepositorySaveSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositorySaveSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidIndexResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        protected void ShouldRespondWith(byte[] bytes, int requestIndex = 0)
+        [Fact]
+        public void GetById()
         {
-            _inMemoryConnection.Requests.Count.Should().BeGreaterOrEqualTo(requestIndex + 1);
-            _inMemoryConnection.Requests[requestIndex].Item3.Should().Equal(bytes);
+            var person = _repository.Save(new Person() { Id = 2, Name = "Tom", Email = "tom@cruise.com"});
+            person.Created.Should().BeTrue();
+        }
+    }
+
+    public class ElasticsearchRepositorySaveNullDocumentSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositorySaveNullDocumentSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidIndexResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        public class GetById : ElasticsearchRepositorySpecs
+        [Fact]
+        public void GetById()
         {
-            public GetById()
-            {
-                _repository.GetById<MyDocument>("id");
-            }
-            
-            [Fact]
-            public void ShouldCallElasticsearch()
-            {
-                ShouldUseHttpMethod("GET");
-                ShouldUseUri(new Uri("http://localhost:9200/my-application/mydocument/id"));
-            }
+            Assert.Throws<ArgumentNullException>(() => _repository.Save<Person>(null));
+        }
+    }
+
+    public class ElasticsearchRepositoryBulkSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryBulkSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidBulkResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        public class DeleteById : ElasticsearchRepositorySpecs
+        [Fact]
+        public void GetById()
         {
-            public DeleteById()
-            {
-                _repository.Delete<MyDocument>("id");
-            }
-            
-            [Fact]
-            public void ShouldCallElasticsearch()
-            {
-                ShouldUseHttpMethod("DELETE");
-                ShouldUseUri(new Uri("http://localhost:9200/my-application/mydocument/id"));
-            }
+            var response = _repository.Bulk(new [] {
+                new Person() { Id = 1 },
+                new Person() { Id = 2 },
+                new Person() { Id = 3 }
+                });
+
+            response.Took.Should().Be(7);
+            response.Items.Count().Should().Be(3);
+        }
+    }
+
+    public class ElasticsearchRepositoryDeleteSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryDeleteSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidDeleteResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        public class DeleteByDocument : ElasticsearchRepositorySpecs
+        [Fact]
+        public void GetById()
         {
-            public DeleteByDocument()
-            {
-                _repository.Delete(new MyDocumentWithId() {Id = "id"});
-            }
+            var response = _repository.Delete<Person>("1");
 
-            [Fact]
-            public void ShouldExecuteQuery()
-            {
-                ShouldUseHttpMethod("DELETE");
-                ShouldUseUri(new Uri("http://localhost:9200/my-application/mydocumentwithid/id"));
-            }
+            response.Found.Should().BeTrue();
+        }
+    }
+
+    public class ElasticsearchRepositoryDeleteDocumentSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryDeleteDocumentSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            var output =
+                "Nest.Queryify.Tests.TestData.ValidDeleteResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, output));
+            _repository = new ElasticsearchRepository(_client);
         }
 
-        public class DeleteByDocumentWithoutIdDefinition : ElasticsearchRepositorySpecs
+        [Fact]
+        public void GetById()
         {
-            private readonly ElasticClientQueryObjectException ex;
+            var response = _repository.Delete(new Person() { Id = 1});
 
-            public DeleteByDocumentWithoutIdDefinition()
-            {
-                ex = Assert.Throws<ElasticClientQueryObjectException>(() => _repository.Delete(new MyDocument()));
-            }
+            response.Found.Should().BeTrue();
+        }
+    }
 
-            [Fact]
-            public void ShouldThrowQueryException()
-            {
-                ex.Should().NotBeNull();
-            }
+    public class ElasticsearchRepositoryExistsSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryExistsSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, string.Empty, 200));
+            _repository = new ElasticsearchRepository(_client);
+        }
+
+        [Fact]
+        public void GetById()
+        {
+            var result = _repository.Exists(new Person() { Id = 1 });
+
+            result.Should().BeTrue();
+        }
+    }
+
+    public class ElasticsearchRepositoryNotExistsSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryNotExistsSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, string.Empty, 404));
+            _repository = new ElasticsearchRepository(_client);
+        }
+
+        [Fact]
+        public void GetById()
+        {
+            var result = _repository.Exists(new Person() { Id = 1 });
+
+            result.Should().BeFalse();
+        }
+    }
+
+    public class ElasticsearchRepositoryDocumentExistsSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryDocumentExistsSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, string.Empty));
+            _repository = new ElasticsearchRepository(_client);
+        }
+
+        [Fact]
+        public void GetById()
+        {
+            var result = _repository.Exists<Person>("1");
+
+            result.Should().BeTrue();
+        }
+    }
+
+    public class ElasticsearchRepositoryDocumentNotExistsSpecs
+    {
+        private readonly IElasticsearchRepository _repository;
+        private IElasticClient _client;
+
+        public ElasticsearchRepositoryDocumentNotExistsSpecs()
+        {
+            var settings = new ConnectionSettings();
+
+            _client = new ElasticClient(settings, new InMemoryConnection(settings, string.Empty, 404));
+            _repository = new ElasticsearchRepository(_client);
+        }
+
+        [Fact]
+        public void GetById()
+        {
+            var result = _repository.Exists<Person>("1");
+
+            result.Should().BeFalse();
         }
     }
 }

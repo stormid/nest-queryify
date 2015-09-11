@@ -1,0 +1,11 @@
+﻿{
+    "_index": "my-application",
+    "_type": "person",
+    "_id": "1",
+    "_version": 1,
+    "found": true,
+    "_source": {
+        "name": "Tom",
+        "email": "tom@cruise.com"
+    }
+}

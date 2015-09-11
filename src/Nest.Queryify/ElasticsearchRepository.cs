@@ -32,7 +32,7 @@ namespace Nest.Queryify
 
         public T FindById<T>(string id, string index = null) where T : class
         {
-            var response = GetById<T>(id, _indexNameInferrer.GetIndexName(index));
+            var response = GetById<T>(id, GetIndexName(index));
             if (response.IsValid && response.Found)
             {
                 return response.Source;
@@ -48,13 +48,13 @@ namespace Nest.Queryify
         public TResponse Query<TResponse>(ElasticClientQueryObject<TResponse> query, string index = null)
             where TResponse : class
         {
-            return _client.Query(query, _indexNameInferrer.GetIndexName(index));
+            return _client.Query(query, GetIndexName(index));
         }
 
 		/// <exception cref="NullReferenceException">indexed document can not be null</exception>
 		public IIndexResponse Save<T>(T document, string index = null, bool? refreshOnSave = null) where T : class
         {
-			if(document == null) throw new NullReferenceException("indexed document can not be null");
+			if(document == null) throw new ArgumentNullException(nameof(document), "indexed document can not be null");
 
 	        return Query(new IndexDocumentQuery<T>(document, refreshOnSave.GetValueOrDefault(false)), index);
         }

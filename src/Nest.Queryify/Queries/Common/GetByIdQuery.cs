@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Nest.Queryify.Queries.Common
 {
     public class GetByIdQuery<T> : GetQuery<T> where T : class
@@ -7,11 +9,6 @@ namespace Nest.Queryify.Queries.Common
         public GetByIdQuery(string id)
         {
             _id = id;
-        }
-
-        protected override IGetResponse<T> ExecuteCore(IElasticClient client, string index)
-        {
-            return client.Get<T>(desc => BuildQuery(desc).Index(index));
         }
 
         protected override GetDescriptor<T> BuildQuery(GetDescriptor<T> descriptor)

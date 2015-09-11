@@ -1,0 +1,29 @@
+﻿{
+  "took": 7,
+  "items": [
+    {
+      "create": {
+        "_index": "my-application",
+        "_type": "person",
+        "_id": "1",
+        "_version": 1
+      }
+    },
+    {
+      "create": {
+        "_index": "my-application",
+        "_type": "person",
+        "_id": "2",
+        "_version": 1
+      }
+    },
+    {
+      "create": {
+        "_index": "my-application",
+        "_type": "person",
+        "_id": "3",
+        "_version": 1
+      }
+    }
+  ]
+}

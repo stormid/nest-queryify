@@ -10,13 +10,13 @@ namespace Nest.Queryify.Abstractions.Queries
     public abstract class ElasticClientQueryObject<TResponse> where TResponse : class
     {
 	    public TResponse Execute(IElasticClient client, string index = null)
-        {
-            return WrapQueryResponse(() => ExecuteCore(client, index));
-        }
+	    {
+	        return WrapQueryResponse(() => ExecuteCore(client, index ?? client.Infer.DefaultIndex));
+	    }
 
         public Task<TResponse> ExecuteAsync(IElasticClient client, string index = null)
         {
-            return WrapQueryResponse(() => ExecuteCoreAsync(client, index));
+            return WrapQueryResponse(() => ExecuteCoreAsync(client, index ?? client.Infer.DefaultIndex));
         }
 
         protected abstract TResponse ExecuteCore(IElasticClient client, string index);
@@ -39,7 +39,7 @@ namespace Nest.Queryify.Abstractions.Queries
             }
             catch (Exception exception)
             {
-                throw new ElasticClientQueryObjectException("An unexpected query execution error occurred", exception);
+                throw new ElasticClientQueryObjectException($"An unexpected query execution error occurred: {exception.Message}", exception);
             }
         }
     }

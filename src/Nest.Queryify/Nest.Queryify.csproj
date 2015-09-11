@@ -63,7 +63,7 @@
     <Compile Include="Abstractions\IIndexNameInferrer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Abstractions\Queries\ElasticClientQueryObject.cs" />
-    <Compile Include="Abstractions\Queries\SearchDescriptorQueryObject.cs" />
+    <Compile Include="Abstractions\Queries\SearchDescriptorQuery.cs" />
     <Compile Include="Abstractions\Queries\SearchQueryObject.cs" />
     <Compile Include="Queries\BulkIndexDocumentQuery.cs" />
     <Compile Include="Queries\Common\DeleteByIdQuery.cs" />
@@ -74,8 +74,8 @@
     <Compile Include="Queries\DocumentExistsQuery.cs" />
     <Compile Include="Queries\GetQuery.cs" />
     <Compile Include="Queries\IndexDocumentQuery.cs" />
-    <Compile Include="Queries\MoreLikeThisDescriptorQuery.cs" />
-    <Compile Include="Queries\MultiSearchDescriptorQuery.cs" />
+    <Compile Include="Queries\MoreLikeThisQuery.cs" />
+    <Compile Include="Queries\MultiSearchQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

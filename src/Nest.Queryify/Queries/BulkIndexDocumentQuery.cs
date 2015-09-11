@@ -9,7 +9,7 @@ namespace Nest.Queryify.Queries
 		private readonly IEnumerable<T> _documents;
 		private readonly bool _refreshOnSave;
 
-		public BulkIndexDocumentQuery(IEnumerable<T> documents, bool refreshOnSave)
+		public BulkIndexDocumentQuery(IEnumerable<T> documents, bool refreshOnSave = false)
 		{
 			_documents = documents;
 			_refreshOnSave = refreshOnSave;
@@ -30,7 +30,7 @@ namespace Nest.Queryify.Queries
 		{
 			descriptor = descriptor
 				.IndexMany(_documents, (d, i) => d
-					.Type(i.GetType())
+                    .Type(i.GetType())
 					.Index(index)
 				)
 				.Refresh(refreshOnSave);
