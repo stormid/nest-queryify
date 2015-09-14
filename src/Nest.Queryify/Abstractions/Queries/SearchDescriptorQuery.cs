@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Nest.Queryify.Abstractions.Queries
 {
-	public abstract class SearchDescriptorQuery<TDocument> : SearchQueryObject<TDocument, TDocument>
+	public abstract class SearchDescriptorQuery<TDocument> : SearchQueryObject<TDocument>
 		where TDocument : class
 	{
 		protected override ISearchResponse<TDocument> ExecuteCore(IElasticClient client, string index)
@@ -18,7 +18,7 @@ namespace Nest.Queryify.Abstractions.Queries
 	    protected abstract SearchDescriptor<TDocument> BuildQuery(SearchDescriptor<TDocument> descriptor);
 	}
 
-	public abstract class SearchDescriptorQuery<TDocument, TReturnDocument> : SearchQueryObject<TDocument, TReturnDocument>
+	public abstract class SearchDescriptorQuery<TDocument, TReturnDocument> : SearchQueryObject<TReturnDocument>
 		where TDocument : class
 		where TReturnDocument : class
     {

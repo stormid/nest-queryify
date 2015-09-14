@@ -3,7 +3,7 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Queries
 {
-	public abstract class MoreLikeThisQuery<T> : SearchQueryObject<T, T>
+	public abstract class MoreLikeThisQuery<T> : SearchQueryObject<T>
 		where T : class
 	{
 		protected override ISearchResponse<T> ExecuteCore(IElasticClient client, string index)

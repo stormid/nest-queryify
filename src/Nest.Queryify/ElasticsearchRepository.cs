@@ -45,7 +45,7 @@ namespace Nest.Queryify
             return Query(new GetByIdQuery<T>(id), index);
         }
 
-        public TResponse Query<TResponse>(ElasticClientQueryObject<TResponse> query, string index = null)
+        public TResponse Query<TResponse>(IElasticClientQueryObject<TResponse> query, string index = null)
             where TResponse : class
         {
             return _client.Query(query, GetIndexName(index));

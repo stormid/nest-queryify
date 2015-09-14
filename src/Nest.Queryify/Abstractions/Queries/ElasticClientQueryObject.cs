@@ -7,7 +7,7 @@ using Nest.Queryify.Exceptions;
 namespace Nest.Queryify.Abstractions.Queries
 {
     [DebuggerStepThrough]
-    public abstract class ElasticClientQueryObject<TResponse> where TResponse : class
+    public abstract class ElasticClientQueryObject<TResponse> : IElasticClientQueryObject<TResponse> where TResponse : class
     {
 	    public TResponse Execute(IElasticClient client, string index = null)
 	    {

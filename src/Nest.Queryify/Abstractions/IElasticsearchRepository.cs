@@ -30,7 +30,7 @@ namespace Nest.Queryify.Abstractions
 		/// <param name="query">query object to execute</param>
 		/// <param name="index">(optional) index on which to execute the query, if not supplied the index default index will be used</param>
 		/// <returns>the response associated with the query</returns>
-        TResponse Query<TResponse>(ElasticClientQueryObject<TResponse> query, string index = null)
+        TResponse Query<TResponse>(IElasticClientQueryObject<TResponse> query, string index = null)
             where TResponse : class;
 
         /// <summary>
