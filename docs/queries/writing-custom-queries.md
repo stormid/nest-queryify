@@ -6,7 +6,7 @@ For example, you could create your own query to perform a complex search within 
 
 The example below shows how you can build a query to execute a search and return the response.  NB: there are pre-defined search query implementations within Nest-Queryify so you would never _need_ to drop to this level to perform a search (see [Search queries](search-queries/index.md)).
 
-```c#
+```
 public class MySearchQuery : ElasticClientQueryObject<ISearchResponse<MyDocument>> {
 	protected override TResponse ExecuteCore(IElasticClient client, string index) {
 		return client.Search<MyDocument>(desc => desc.MatchAll().Index(index));

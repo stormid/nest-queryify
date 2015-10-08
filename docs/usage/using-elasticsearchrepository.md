@@ -4,7 +4,7 @@ For those new to Nest, or even new to Elasticsearch itself you can use the ```El
 
 ## Basic Example
 
-```c#
+```
 var uri = new Uri("http://localhost:9200");
 var defaultIndex = "my-application";
 IElasticsearchRepository repository = new ElasticsearchRepository(defaultIndex, uri);

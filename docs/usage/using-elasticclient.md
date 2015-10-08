@@ -4,7 +4,7 @@ If you have previous experience using Nest or have an existing application using
 
 ## Basic Example
 
-```c#
+```
 var node = new Uri("http://localhost:9200");
 var settings = new ConnectionSettings(node, defaultIndex: "my-application");
 IElasticClient client = new ElasticClient(settings);
