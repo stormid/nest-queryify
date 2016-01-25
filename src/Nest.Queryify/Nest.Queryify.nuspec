@@ -13,4 +13,8 @@
     <projectUrl>https://github.com/stormid/Nest-Queryify</projectUrl>
     <licenseUrl>https://github.com/stormid/Nest-Queryify/blob/master/LICENSE</licenseUrl>
   </metadata>
+  <files>
+    <file src="bin\Release-Net45\Nest.Queryify.dll" target="lib\net45" />
+    <file src="bin\Release\Nest.Queryify.dll" target="lib\net452" />
+  </files>
 </package>
