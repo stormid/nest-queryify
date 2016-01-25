@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nest.Queryify", "src\Nest.Queryify\Nest.Queryify.csproj", "{70F41783-BD20-4C56-941A-E370ED41D397}"
 EndProject
@@ -10,17 +10,27 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug-Net45|Any CPU = Debug-Net45|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-Net45|Any CPU = Release-Net45|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{70F41783-BD20-4C56-941A-E370ED41D397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70F41783-BD20-4C56-941A-E370ED41D397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F41783-BD20-4C56-941A-E370ED41D397}.Debug-Net45|Any CPU.ActiveCfg = Debug-Net45|Any CPU
+		{70F41783-BD20-4C56-941A-E370ED41D397}.Debug-Net45|Any CPU.Build.0 = Debug-Net45|Any CPU
 		{70F41783-BD20-4C56-941A-E370ED41D397}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70F41783-BD20-4C56-941A-E370ED41D397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F41783-BD20-4C56-941A-E370ED41D397}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{70F41783-BD20-4C56-941A-E370ED41D397}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
 		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Debug-Net45|Any CPU.ActiveCfg = Debug-Net45|Any CPU
+		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Debug-Net45|Any CPU.Build.0 = Debug-Net45|Any CPU
 		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{DCBCA41B-24D5-4D12-98ED-5DA29D4D15FB}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
