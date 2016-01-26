@@ -8,7 +8,7 @@ build:
   project: Nest.Queryify.sln
   verbosity: minimal
 after_build:
-  cmd: nuget pack src/Nest.Queryify/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Properties "Configuration=%CONFIGURATION%" -Verbosity quiet
+  cmd: nuget pack src/Nest.Queryify/Nest.Queryify.csproj -Version %GitVersion_NugetVersion% -IncludeReferencedProjects -Properties "Configuration=%CONFIGURATION%" -Verbosity quiet -Symbols
 artifacts:
 - path: Nest.Queryify.*.nupkg
 cache: packages -> src\packages.config
