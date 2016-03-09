@@ -6,20 +6,35 @@ namespace Nest.Queryify.Queries.Common
 	public class DeleteDocumentQuery<T> : ElasticClientQueryObject<IDeleteResponse> where T : class
 	{
 		private readonly T _document;
+	    private readonly bool _refreshOnDelete;
 
-		public DeleteDocumentQuery(T document)
-		{
-			_document = document;
-		}
+	    public DeleteDocumentQuery(T document, bool refreshOnDelete = false)
+	    {
+	        _document = document;
+	        _refreshOnDelete = refreshOnDelete;
+	    }
 
-		protected override IDeleteResponse ExecuteCore(IElasticClient client, string index)
+	    protected override IDeleteResponse ExecuteCore(IElasticClient client, string index)
 		{
-			return client.Delete<T>(descriptor => descriptor.IdFrom(_document).Index(index));
+			return client.Delete<T>(descriptor => BuildQueryCore(descriptor).Index(index));
 		}
 
 	    protected override Task<IDeleteResponse> ExecuteCoreAsync(IElasticClient client, string index)
 	    {
-            return client.DeleteAsync<T>(descriptor => descriptor.IdFrom(_document).Index(index));
+            return client.DeleteAsync<T>(descriptor => BuildQueryCore(descriptor).Index(index));
         }
-	}
+
+        protected virtual DeleteDescriptor<T> BuildQueryCore(DeleteDescriptor<T> descriptor)
+        {
+            descriptor = descriptor
+                .IdFrom(_document)
+                .Refresh(_refreshOnDelete);
+            return BuildQuery(descriptor);
+        }
+
+        protected virtual DeleteDescriptor<T> BuildQuery(DeleteDescriptor<T> descriptor)
+        {
+            return descriptor;
+        }
+    }
 }

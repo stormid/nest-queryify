@@ -28,7 +28,7 @@ namespace Nest.Queryify.Queries
 		{
 			descriptor = descriptor
 				.Type<T>()
-				.Refresh(_refreshOnSave);
+				.Refresh(refreshOnSave);
 			return BuildQuery(descriptor);
 		}
 
