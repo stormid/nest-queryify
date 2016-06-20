@@ -3,6 +3,9 @@ using Nest.Queryify.Abstractions.Queries;
 
 namespace Nest.Queryify.Abstractions
 {
+    /// <summary>
+    /// Elastic search repository interface defining CRUD operations
+    /// </summary>
     public interface IElasticsearchRepository
     {
 		/// <summary>
