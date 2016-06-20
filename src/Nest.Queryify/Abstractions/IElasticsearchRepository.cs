@@ -58,16 +58,18 @@ namespace Nest.Queryify.Abstractions
         /// <typeparam name="T"></typeparam>
         /// <param name="document"></param>
         /// <param name="index">(optional) index on which to execute the query, if not supplied the index default index will be used</param>
+        /// <param name="refreshOnDelete">specifies whether to refresh the search index after completing the delete operation, only use when you understand the impact</param>
         /// <returns></returns>
-        IDeleteResponse Delete<T>(T document, string index = null) where T : class;
+        IDeleteResponse Delete<T>(T document, string index = null, bool? refreshOnDelete = null) where T : class;
         /// <summary>
         /// Removes an individual item identified by <paramref name="id"/>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <param name="index">(optional) index on which to execute the query, if not supplied the index default index will be used</param>
+        /// <param name="refreshOnDelete">specifies whether to refresh the search index after completing the delete operation, only use when you understand the impact</param>
         /// <returns></returns>
-        IDeleteResponse Delete<T>(string id, string index = null) where T : class;
+        IDeleteResponse Delete<T>(string id, string index = null, bool? refreshOnDelete = null) where T : class;
         /// <summary>
         /// Determines whether <paramref name="document"/> exists in the given index
         /// </summary>

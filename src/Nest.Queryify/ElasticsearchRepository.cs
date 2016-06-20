@@ -64,14 +64,14 @@ namespace Nest.Queryify
 	        return Query(new BulkIndexDocumentQuery<T>(documents, refreshOnSave.GetValueOrDefault(false)), index);
         }
 
-        public IDeleteResponse Delete<T>(T document, string index = null) where T : class
+        public IDeleteResponse Delete<T>(T document, string index = null, bool? refreshOnDelete = null) where T : class
         {
-	        return Query(new DeleteDocumentQuery<T>(document), index);
+	        return Query(new DeleteDocumentQuery<T>(document, refreshOnDelete.GetValueOrDefault(false)), index);
         }
 
-		public IDeleteResponse Delete<T>(string id, string index = null) where T : class
+		public IDeleteResponse Delete<T>(string id, string index = null, bool? refreshOnDelete = null) where T : class
 		{
-			return Query(new DeleteByIdQuery<T>(id), index);
+			return Query(new DeleteByIdQuery<T>(id, refreshOnDelete.GetValueOrDefault(false)), index);
 		}
 
         public bool Exists<T>(string id, string index = null) where T : class
