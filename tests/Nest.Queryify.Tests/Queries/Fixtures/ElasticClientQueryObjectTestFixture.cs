@@ -18,6 +18,8 @@ namespace Nest.Queryify.Tests.Queries.Fixtures
         public Uri HostUri { get; }
         public string DefaultIndex { get; }
 
+        public IEnumerable<Uri> CalledUriList => _connection?.Requests?.Select(x => x.Item2) ?? Enumerable.Empty<Uri>();
+
         public IElasticClient Client { get; }
 
         public ElasticClientQueryObjectTestFixture() : this("my-application", captureRequests: true) { }

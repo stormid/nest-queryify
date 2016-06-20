@@ -17,6 +17,7 @@ namespace Nest.Queryify.Tests.Repository
         public ElasticsearchRepositoryBulkSpecs()
         {
             var settings = new ConnectionSettings();
+            settings.SetDefaultIndex("test-index");
 
             var output =
                 "Nest.Queryify.Tests.TestData.ValidBulkResponse.json".ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>();
@@ -35,6 +36,7 @@ namespace Nest.Queryify.Tests.Repository
 
             response.Took.Should().Be(7);
             response.Items.Count().Should().Be(3);
+            response.Infer.DefaultIndex.Should().Be("test-index");
         }
     }
 }

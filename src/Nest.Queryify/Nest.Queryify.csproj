@@ -56,13 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\Queries\IElasticClientQueryObject.cs" />
-    <Compile Include="DefaultIndexNameInferrer.cs" />
     <Compile Include="ElasticsearchRepository.cs" />
     <Compile Include="Exceptions\ElasticClientQueryObjectException.cs" />
     <Compile Include="Exceptions\ElasticsearchException.cs" />
     <Compile Include="Extensions\ElasticClientQueryExtensions.cs" />
     <Compile Include="Abstractions\IElasticsearchRepository.cs" />
-    <Compile Include="Abstractions\IIndexNameInferrer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Abstractions\Queries\ElasticClientQueryObject.cs" />
     <Compile Include="Abstractions\Queries\SearchDescriptorQuery.cs" />

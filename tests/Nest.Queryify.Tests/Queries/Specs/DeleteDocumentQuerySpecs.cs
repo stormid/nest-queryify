@@ -18,7 +18,7 @@ namespace Nest.Queryify.Tests.Queries.Specs
         protected override void AssertExpectations()
         {
             Fixture.ShouldUseHttpMethod("DELETE");
-            Fixture.ShouldUseUri(new Uri("http://localhost:9200/my-application/person/1"));
+            Fixture.ShouldUseUri(new Uri("http://localhost:9200/my-application/person/1?refresh=false"));
         }
 
         protected override ElasticClientQueryObject<IDeleteResponse> Query()
@@ -33,5 +33,31 @@ namespace Nest.Queryify.Tests.Queries.Specs
             var query = new DeleteDocumentQuery<Person>(null);
             var ex = Assert.Throws<ElasticClientQueryObjectException>(() => Fixture.Client.Query(query));
         }        
+    }
+
+    public class DeleteDocumentWithRefreshQuerySpecs : QuerySpec<IDeleteResponse>
+    {
+        public DeleteDocumentWithRefreshQuerySpecs(ElasticClientQueryObjectTestFixture fixture) : base(fixture)
+        {
+        }
+
+        protected override void AssertExpectations()
+        {
+            Fixture.ShouldUseHttpMethod("DELETE");
+            Fixture.ShouldUseUri(new Uri("http://localhost:9200/my-application/person/1?refresh=true"));
+        }
+
+        protected override ElasticClientQueryObject<IDeleteResponse> Query()
+        {
+            var person = new Person() { Id = 1 };
+            return new DeleteDocumentQuery<Person>(person, true);
+        }
+
+        [Fact]
+        public void WhenNoDocumentIsSpecified()
+        {
+            var query = new DeleteDocumentQuery<Person>(null);
+            var ex = Assert.Throws<ElasticClientQueryObjectException>(() => Fixture.Client.Query(query));
+        }
     }
 }
