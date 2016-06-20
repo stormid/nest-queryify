@@ -13,11 +13,7 @@ namespace Nest.Queryify
     public class ElasticsearchRepository : IElasticsearchRepository
     {
         private readonly IElasticClient _client;
-
-        public ElasticsearchRepository(string defaultIndexName, Uri host = null) : this(new ElasticClient(new ConnectionSettings(host, defaultIndexName)))
-	    {
-	    }
-
+        
         public ElasticsearchRepository(IElasticClient client)
         {
             _client = client;

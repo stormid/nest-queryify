@@ -11,7 +11,7 @@ namespace Nest.Queryify.Tests.Repository
     public class ElasticsearchRepositorySaveSpecs
     {
         private readonly IElasticsearchRepository _repository;
-        private IElasticClient _client;
+        private readonly IElasticClient _client;
 
         public ElasticsearchRepositorySaveSpecs()
         {

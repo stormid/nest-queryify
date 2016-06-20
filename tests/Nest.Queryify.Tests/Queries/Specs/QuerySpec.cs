@@ -43,7 +43,11 @@ namespace Nest.Queryify.Tests.Queries.Specs
             AssertExpectations();
         }
 
-        protected abstract void AssertExpectations();
+        protected virtual void AssertExpectations()
+        {
+            
+        }
+
         protected abstract ElasticClientQueryObject<TResponse> Query();
 
     }
