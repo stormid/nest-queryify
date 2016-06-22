@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Elasticsearch.Net.Connection;
 using FluentAssertions;
 using Nest.Queryify.Abstractions;
@@ -27,6 +28,13 @@ namespace Nest.Queryify.Tests.Repository
         public void ShouldRun()
         {
             var person = _repository.Save(new Person() { Id = 2, Name = "Tom", Email = "tom@cruise.com"});
+            person.Created.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task ShouldRunAsync()
+        {
+            var person = await _repository.SaveAsync(new Person() { Id = 2, Name = "Tom", Email = "tom@cruise.com" });
             person.Created.Should().BeTrue();
         }
     }

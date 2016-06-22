@@ -36,11 +36,7 @@ namespace Nest.Queryify.Tests.Queries.Specs
         {
             await Assert.ThrowsAsync<ElasticClientQueryObjectException>(async () => await base.ShouldExecuteAsync());
         }
-
-        protected override void AssertExpectations()
-        {
-        }
-
+        
         protected override ElasticClientQueryObject<ISearchResponse<Person>> Query()
         {
             return new ExceptionQuery();

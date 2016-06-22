@@ -7,10 +7,6 @@ namespace Nest.Queryify.Exceptions
     [Serializable]
     public class ElasticClientQueryObjectException : ElasticsearchException
     {
-        public ElasticClientQueryObjectException(ElasticsearchServerError error) : base(error)
-        {
-        }
-
         public ElasticClientQueryObjectException(string message, string exceptionType, int status) : base(message, exceptionType, status)
         {
         }

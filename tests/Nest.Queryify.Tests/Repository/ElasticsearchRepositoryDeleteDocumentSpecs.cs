@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Elasticsearch.Net.Connection;
 using FluentAssertions;
 using Nest.Queryify.Abstractions;
@@ -27,6 +28,14 @@ namespace Nest.Queryify.Tests.Repository
         public void ShouldRun()
         {
             var response = _repository.Delete(new Person() { Id = 1});
+
+            response.Found.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task ShouldRunAsync()
+        {
+            var response = await _repository.DeleteAsync(new Person() { Id = 1 });
 
             response.Found.Should().BeTrue();
         }

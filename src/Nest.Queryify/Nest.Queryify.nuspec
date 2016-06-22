@@ -12,5 +12,8 @@
     <iconUrl>http://stormid.com/_/images/icons/apple-touch-icon.png</iconUrl>
     <projectUrl>https://github.com/stormid/Nest-Queryify</projectUrl>
     <licenseUrl>https://github.com/stormid/Nest-Queryify/blob/master/LICENSE</licenseUrl>
+    <dependencies>
+      <dependency id="Nest" version="[1.6,2]"/>
+    </dependencies>
   </metadata>
 </package>

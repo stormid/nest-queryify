@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Elasticsearch.Net.Connection;
 using Nest.Queryify.Abstractions;
 using Nest.Queryify.Tests.Extensions;
@@ -27,6 +28,12 @@ namespace Nest.Queryify.Tests.Repository
         public void ShouldRun()
         {
             Assert.Throws<ArgumentNullException>(() => _repository.Save<Person>(null));
+        }
+
+        [Fact]
+        public async Task ShouldRunAsync()
+        {
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _repository.SaveAsync<Person>(null));
         }
     }
 }

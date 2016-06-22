@@ -10,10 +10,6 @@ namespace Nest.Queryify.Exceptions
         public string ExceptionType { get; private set; }
         public int Status { get; private set; }
 
-        public ElasticsearchException(ElasticsearchServerError error) : this(error.Error, error.ExceptionType, error.Status)
-        {
-        }
-
         public ElasticsearchException(string message, string exceptionType, int status) : base(message)
         {
             ExceptionType = exceptionType;

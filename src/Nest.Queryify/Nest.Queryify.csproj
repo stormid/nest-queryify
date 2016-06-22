@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\IElasticsearchRepositoryAsync.cs" />
     <Compile Include="Abstractions\Queries\IElasticClientQueryObject.cs" />
     <Compile Include="ElasticsearchRepository.cs" />
     <Compile Include="Exceptions\ElasticClientQueryObjectException.cs" />

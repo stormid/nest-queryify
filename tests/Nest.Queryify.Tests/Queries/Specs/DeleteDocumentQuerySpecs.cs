@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Nest.Queryify.Abstractions.Queries;
 using Nest.Queryify.Exceptions;
 using Nest.Queryify.Extensions;
@@ -32,7 +33,14 @@ namespace Nest.Queryify.Tests.Queries.Specs
         {
             var query = new DeleteDocumentQuery<Person>(null);
             var ex = Assert.Throws<ElasticClientQueryObjectException>(() => Fixture.Client.Query(query));
-        }        
+        }
+
+        [Fact]
+        public async Task WhenNoDocumentIsSpecifiedAsync()
+        {
+            var query = new DeleteDocumentQuery<Person>(null);
+            var ex = await Assert.ThrowsAsync<ElasticClientQueryObjectException>(() => Fixture.Client.QueryAsync(query));
+        }
     }
 
     public class DeleteDocumentWithRefreshQuerySpecs : QuerySpec<IDeleteResponse>
@@ -58,6 +66,13 @@ namespace Nest.Queryify.Tests.Queries.Specs
         {
             var query = new DeleteDocumentQuery<Person>(null);
             var ex = Assert.Throws<ElasticClientQueryObjectException>(() => Fixture.Client.Query(query));
+        }
+
+        [Fact]
+        public async Task WhenNoDocumentIsSpecifiedAsync()
+        {
+            var query = new DeleteDocumentQuery<Person>(null);
+            var ex = await Assert.ThrowsAsync<ElasticClientQueryObjectException>(() => Fixture.Client.QueryAsync(query));
         }
     }
 }

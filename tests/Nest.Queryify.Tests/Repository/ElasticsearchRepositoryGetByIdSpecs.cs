@@ -1,4 +1,5 @@
-﻿using Elasticsearch.Net.Connection;
+﻿using System.Threading.Tasks;
+using Elasticsearch.Net.Connection;
 using FluentAssertions;
 using Nest.Queryify.Abstractions;
 using Nest.Queryify.Tests.Extensions;
@@ -27,6 +28,14 @@ namespace Nest.Queryify.Tests.Repository
         public void ShouldRun()
         {
             var response = _repository.GetById<Person>("1");
+            response.Found.Should().BeTrue();
+            response.Id.Should().Be("1");
+        }
+
+        [Fact]
+        public async Task ShouldRunAsync()
+        {
+            var response = await _repository.GetByIdAsync<Person>("1");
             response.Found.Should().BeTrue();
             response.Id.Should().Be("1");
         }

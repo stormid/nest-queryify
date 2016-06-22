@@ -39,6 +39,7 @@ namespace Nest.Queryify.Tests.Queries.Fixtures
             Client = new ElasticClient(_connectionSettingsValues, _connection);
         }
 
+        /*
         public void SetExpectedRequest<TResponse>(string method, Uri uri, TResponse response)
         {
             var bytes = Client.Serializer.Serialize(response);
@@ -55,7 +56,7 @@ namespace Nest.Queryify.Tests.Queries.Fixtures
         public void SetExpectedRequestFromResource<TResponse>(string method, Uri uri, string embeddedResourcePath)
         {
             SetExpectedRequest<TResponse>(method, uri, embeddedResourcePath.ReadAsStringFromEmbeddedResource<ElasticClientQueryObjectTestFixture>());
-        }
+        } */
 
         protected virtual IEnumerable<Tuple<string, Uri, byte[]>> ExpectedRequests()
         {
@@ -74,11 +75,12 @@ namespace Nest.Queryify.Tests.Queries.Fixtures
             _connection.Requests[requestIndex].Item2.Should().Be(uri);
         }
 
+        /*
         public void ShouldRespondWith(byte[] bytes, int requestIndex = 0)
         {
             _connection.Requests.Count.Should().BeGreaterOrEqualTo(requestIndex + 1);
             _connection.Requests[requestIndex].Item3.Should().Equal(bytes);
-        }
+        } */
 
         public T RespondsWith<T>(int requestIndex = 0)
         {
@@ -87,20 +89,22 @@ namespace Nest.Queryify.Tests.Queries.Fixtures
             return Client.Serializer.Deserialize<T>(new MemoryStream(bytes));
         }
 
+        /*
         public void ShouldRespondWith<T>(Action<T> response, int requestIndex = 0)
         {
             _connection.Requests.Count.Should().BeGreaterOrEqualTo(requestIndex + 1);
             var bytes = _connection.Requests[requestIndex].Item3;
             response(Client.Serializer.Deserialize<T>(new MemoryStream(bytes)));
-        }
+        } */
 
         public void Dispose()
         {
         }
 
+        /*
         public void ToggleRecordingRequests()
         {
             _connection.RecordRequests = !_connection.RecordRequests;
-        }
+        } */
     }
 }

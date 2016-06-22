@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Elasticsearch.Net.Connection;
 using FluentAssertions;
 using Nest.Queryify.Abstractions;
@@ -29,6 +30,20 @@ namespace Nest.Queryify.Tests.Repository
         public void ShouldRun()
         {
             var response = _repository.Bulk(new [] {
+                new Person() { Id = 1 },
+                new Person() { Id = 2 },
+                new Person() { Id = 3 }
+            });
+
+            response.Took.Should().Be(7);
+            response.Items.Count().Should().Be(3);
+            response.Infer.DefaultIndex.Should().Be("test-index");
+        }
+
+        [Fact]
+        public async Task ShouldRunAsync()
+        {
+            var response = await _repository.BulkAsync(new[] {
                 new Person() { Id = 1 },
                 new Person() { Id = 2 },
                 new Person() { Id = 3 }
