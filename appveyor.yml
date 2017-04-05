@@ -5,3 +5,8 @@ init:
 build_script:
 - ps: .\build.ps1 -Target "CI" -Verbosity "Normal" -Configuration "Release"
 test: off
+deploy:
+- provider: Environment
+  name: MyGet (ES Snapback)
+  on:
+    branch: /release\/.+/
