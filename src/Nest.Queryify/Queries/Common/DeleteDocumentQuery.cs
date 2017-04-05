@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Nest.Queryify.Abstractions.Queries;
+using Nest.Queryify.Extensions;
 
 namespace Nest.Queryify.Queries.Common
 {
@@ -15,19 +16,20 @@ namespace Nest.Queryify.Queries.Common
 	    }
 
 	    protected override IDeleteResponse ExecuteCore(IElasticClient client, string index)
-		{
-			return client.Delete<T>(descriptor => BuildQueryCore(descriptor).Index(index));
+	    {
+            var doc = DocumentPath<T>.Id(_document);
+            return client.Delete(doc, descriptor => BuildQueryCore(descriptor).Index(index));
 		}
 
 	    protected override Task<IDeleteResponse> ExecuteCoreAsync(IElasticClient client, string index)
 	    {
-            return client.DeleteAsync<T>(descriptor => BuildQueryCore(descriptor).Index(index));
+            var doc = DocumentPath<T>.Id(_document);
+            return client.DeleteAsync(doc, descriptor => BuildQueryCore(descriptor).Index(index));
         }
 
         protected virtual DeleteDescriptor<T> BuildQueryCore(DeleteDescriptor<T> descriptor)
         {
             descriptor = descriptor
-                .IdFrom(_document)
                 .Refresh(_refreshOnDelete);
             return BuildQuery(descriptor);
         }

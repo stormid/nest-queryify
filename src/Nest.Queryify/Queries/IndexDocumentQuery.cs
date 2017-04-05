@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Nest.Queryify.Abstractions.Queries;
+using Nest.Queryify.Extensions;
 
 namespace Nest.Queryify.Queries
 {
@@ -31,7 +32,7 @@ namespace Nest.Queryify.Queries
 				.Refresh(refreshOnSave);
 			return BuildQuery(descriptor);
 		}
-
+        
 		protected virtual IndexDescriptor<T> BuildQuery(IndexDescriptor<T> descriptor)
 		{
 			return descriptor;

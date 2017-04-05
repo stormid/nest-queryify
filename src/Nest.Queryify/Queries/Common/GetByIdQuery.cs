@@ -1,19 +1,22 @@
-using System.Threading.Tasks;
+using System;
 
 namespace Nest.Queryify.Queries.Common
 {
     public class GetByIdQuery<T> : GetQuery<T> where T : class
     {
-        private readonly string _id;
-
-        public GetByIdQuery(string id)
+        [Obsolete(ObsoleteMessage)]
+        public GetByIdQuery(string id) : base(id)
         {
-            _id = id;
+        }
+
+        public GetByIdQuery(DocumentPath<T> documentPath) : base(documentPath)
+        {
+            
         }
 
         protected override GetDescriptor<T> BuildQuery(GetDescriptor<T> descriptor)
         {
-            return descriptor.Id(_id);
+            return descriptor;
         }
     }
 }

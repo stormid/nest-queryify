@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nest.Queryify.Abstractions.Queries;
@@ -13,7 +14,17 @@ namespace Nest.Queryify.Abstractions
         /// <param name="id"></param>
         /// <param name="index"></param>
         /// <returns></returns>
+        [Obsolete("Use implementation with DocumentPath")]
         Task<T> FindByIdAsync<T>(string id, string index = null) where T : class;
+
+        /// <summary>
+        /// Get individual item for <paramref name="documentPath"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="documentPath"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        Task<T> FindByIdAsync<T>(DocumentPath<T> documentPath, string index = null) where T : class;
 
         /// <summary>
         /// Get individual item for <paramref name="id"/>
@@ -22,7 +33,17 @@ namespace Nest.Queryify.Abstractions
         /// <param name="id"></param>
         /// <param name="index"></param>
         /// <returns></returns>
+        [Obsolete("Use implementation with DocumentPath")]
         Task<IGetResponse<T>> GetByIdAsync<T>(string id, string index = null) where T : class;
+
+        /// <summary>
+        /// Get individual item for <paramref name="documentPath"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="documentPath"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        Task<IGetResponse<T>> GetByIdAsync<T>(DocumentPath<T> documentPath, string index = null) where T : class;
 
         /// <summary>
         /// Execute a query against the given or derived index

@@ -10,9 +10,9 @@ namespace Nest.Queryify.Extensions
             return query.Execute(client, index);
         }
 
-        public static Task<TResponse> QueryAsync<TResponse>(this IElasticClient client, IElasticClientQueryObject<TResponse> query, string index = null) where TResponse : class
+        public static async Task<TResponse> QueryAsync<TResponse>(this IElasticClient client, IElasticClientQueryObject<TResponse> query, string index = null) where TResponse : class
         {
-            return query.ExecuteAsync(client, index);
+            return await query.ExecuteAsync(client, index).ConfigureAwait(false);
         }
     }
 }

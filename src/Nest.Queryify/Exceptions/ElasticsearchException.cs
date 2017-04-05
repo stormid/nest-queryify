@@ -4,11 +4,10 @@ using Elasticsearch.Net;
 
 namespace Nest.Queryify.Exceptions
 {
-    [Serializable]
     public class ElasticsearchException : Exception
     {
-        public string ExceptionType { get; private set; }
-        public int Status { get; private set; }
+        public string ExceptionType { get; }
+        public int Status { get; }
 
         public ElasticsearchException(string message, string exceptionType, int status) : base(message)
         {

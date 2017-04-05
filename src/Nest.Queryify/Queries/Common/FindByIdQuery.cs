@@ -14,12 +14,12 @@ namespace Nest.Queryify.Queries.Common
 
         protected override T ExecuteCore(IElasticClient client, string index)
         {
-            return client.Get<T>(desc => desc.Id(_id).Index(index)).Source;
+            return client.Get(DocumentPath<T>.Id(_id), desc => desc.Index(index)).Source;
         }
 
         protected override Task<T> ExecuteCoreAsync(IElasticClient client, string index)
         {
-            return client.GetAsync<T>(desc => desc.Id(_id).Index(index)).ContinueWith(t => t.Result.Source);
+            return client.GetAsync(DocumentPath<T>.Id(_id), desc => desc.Index(index)).ContinueWith(t => t.Result.Source);
         }
     }
 }
