@@ -126,7 +126,7 @@ Task("DotNet-Test")
 
     var settings = new DotNetCoreTestSettings
     {
-        Configuration = "Release",
+        Configuration = configuration,
         NoBuild = true
     };
 
