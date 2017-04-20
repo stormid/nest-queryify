@@ -1,6 +1,5 @@
 namespace Nest.Queryify.Tests.TestData
 {
-    [ElasticType(IdProperty = "Id")]
     public class Person
     {
         public int Id { get; set; }

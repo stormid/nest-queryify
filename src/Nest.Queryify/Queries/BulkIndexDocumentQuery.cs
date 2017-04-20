@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nest.Queryify.Abstractions.Queries;
+using Nest.Queryify.Extensions;
 
 namespace Nest.Queryify.Queries
 {

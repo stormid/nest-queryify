@@ -9,38 +9,45 @@ namespace Nest.Queryify.Abstractions.Queries
     [DebuggerStepThrough]
     public abstract class ElasticClientQueryObject<TResponse> : IElasticClientQueryObject<TResponse> where TResponse : class
     {
-	    public TResponse Execute(IElasticClient client, string index = null)
-	    {
-	        return WrapQueryResponse(() => ExecuteCore(client, index ?? client.Infer.DefaultIndex));
-	    }
-
-        public Task<TResponse> ExecuteAsync(IElasticClient client, string index = null)
+        private static string GetDefaultIndex(IElasticClient client)
         {
-            return WrapQueryResponse(() => ExecuteCoreAsync(client, index ?? client.Infer.DefaultIndex));
+            return client.ConnectionSettings.DefaultIndex;
         }
 
-        protected abstract TResponse ExecuteCore(IElasticClient client, string index);
-
-        protected abstract Task<TResponse> ExecuteCoreAsync(IElasticClient client, string index);
-
-        private static TQueryResponse WrapQueryResponse<TQueryResponse>(Func<TQueryResponse> execute) where TQueryResponse : class
+        public TResponse Execute(IElasticClient client, string index = null)
         {
             try
             {
-                return execute();
+                return ExecuteCore(client, index ?? GetDefaultIndex(client));
             }
             catch (ElasticClientQueryObjectException)
             {
                 throw;
-            }
-            catch (ElasticsearchServerException exception)
-            {
-                throw new ElasticClientQueryObjectException("Query execution failed", exception.ExceptionType, exception.Status, exception);
             }
             catch (Exception exception)
             {
                 throw new ElasticClientQueryObjectException($"An unexpected query execution error occurred: {exception.Message}", exception);
             }
         }
+
+        public async Task<TResponse> ExecuteAsync(IElasticClient client, string index = null)
+        {
+            try
+            {
+                return await ExecuteCoreAsync(client, index ?? GetDefaultIndex(client)).ConfigureAwait(false);
+            }
+            catch (ElasticClientQueryObjectException)
+            {
+                throw;
+            }
+            catch (Exception exception)
+            {
+                throw new ElasticClientQueryObjectException($"An unexpected query execution error occurred: {exception.Message}", exception);
+            }
+        }
+
+        protected abstract TResponse ExecuteCore(IElasticClient client, string index);
+
+        protected abstract Task<TResponse> ExecuteCoreAsync(IElasticClient client, string index);
     }
 }

@@ -3,7 +3,6 @@ using Nest.Queryify.Abstractions.Queries;
 using Nest.Queryify.Queries.Common;
 using Nest.Queryify.Tests.Queries.Fixtures;
 using Nest.Queryify.Tests.TestData;
-using Xunit;
 
 namespace Nest.Queryify.Tests.Queries.Specs
 {
@@ -21,7 +20,7 @@ namespace Nest.Queryify.Tests.Queries.Specs
 
         protected override ElasticClientQueryObject<IGetResponse<Person>> Query()
         {
-            return new GetByIdQuery<Person>("1");
+            return new GetByIdQuery<Person>(DocumentPath<Person>.Id("1"));
         }
     }
 }

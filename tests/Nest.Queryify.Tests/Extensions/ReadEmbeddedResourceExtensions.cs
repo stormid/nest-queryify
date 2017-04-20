@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 
 namespace Nest.Queryify.Tests.Extensions
 {
@@ -23,7 +24,7 @@ namespace Nest.Queryify.Tests.Extensions
 
         public static Stream ReadFromEmbeddedResource<T>(this string resourceName)
         {
-            var assembly = typeof(T).Assembly;
+            var assembly = typeof(T).GetTypeInfo().Assembly;
             return assembly.GetManifestResourceStream(resourceName);
         }
     }

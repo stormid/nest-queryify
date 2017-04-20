@@ -5,12 +5,25 @@ For those new to Nest, or even new to Elasticsearch itself you can use the ```El
 ## Basic Example
 
 ```
-var uri = new Uri("http://localhost:9200");
-var defaultIndex = "my-application";
-IElasticsearchRepository repository = new ElasticsearchRepository(defaultIndex, uri);
+var singleNode = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
+var settings = new ConnectionSettings(node);
+settings.DefaultIndex("my-application");
+IElasticClient client = new ElasticClient(settings);
 
-var query = new GetByIdQuery<MyDocument>("my-identifier");
+IElasticsearchRepository repository = new ElasticsearchRepository(client);
+
+var query = new GetByIdQuery(DocumentPath.Id<MyDocument>("my-identifier"));
 IGetResponse<MyDocument> queryResponse = repository.Query(query);
 var document = queryResponse.Source;
+
+// or
+
+var queryResponse = repository.GetById(DocumentPath.Id<MyDocument>("my-identifier"));
+var document = queryResponse.Source;
+
+// or
+
+var document = repository.FindById(DocumentPath.Id<MyDocument>("my-identifier"));
+
 // use your document
 ```

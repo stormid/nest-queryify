@@ -1,10 +1,7 @@
 using System;
-using System.Runtime.Serialization;
-using Elasticsearch.Net;
 
 namespace Nest.Queryify.Exceptions
 {
-    [Serializable]
     public class ElasticClientQueryObjectException : ElasticsearchException
     {
         public ElasticClientQueryObjectException(string message, string exceptionType, int status) : base(message, exceptionType, status)

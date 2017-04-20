@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Elasticsearch.Net.Connection;
 using FluentAssertions;
 using Nest.Queryify.Abstractions;
 using Nest.Queryify.Tests.Extensions;
@@ -8,7 +7,7 @@ using Nest.Queryify.Tests.Queries.Fixtures;
 using Nest.Queryify.Tests.TestData;
 using Xunit;
 
-namespace Nest.Queryify.Tests.Repository
+namespace Nest.Queryify.UnitTests.Repository
 {
     public class ElasticsearchRepositoryBulkSpecs
     {
