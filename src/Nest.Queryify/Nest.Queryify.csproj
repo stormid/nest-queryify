@@ -14,8 +14,9 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>Nest.Queryify</PackageId>
     <Authors>Phil Oyston, Storm ID</Authors>
+    <Owners>StormId</Owners>
     <Company>Storm ID</Company>
-    <Description>Query abstraction</Description>
+    <Description>Use a query object design pattern to write elasticsearch commands.</Description>
     <Copyright>Phil Oyston, Storm ID Ltd.</Copyright>
     <PackageIconUrl>https://www.stormid.com/content/img/icons/apple-touch-icon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/stormid/Nest-Queryify</PackageProjectUrl>
