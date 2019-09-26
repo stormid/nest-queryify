@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>Nest.Queryify</AssemblyName>
     <RootNamespace>Nest.Queryify</RootNamespace>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.0</NetStandardImplicitPackageVersion>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard2.0' ">2.0</NetStandardImplicitPackageVersion>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
@@ -18,21 +17,22 @@
     <Company>Storm ID</Company>
     <Description>Use a query object design pattern to write elasticsearch commands.</Description>
     <Copyright>Phil Oyston, Storm ID Ltd.</Copyright>
-    <PackageIconUrl>https://www.stormid.com/content/img/icons/apple-touch-icon.png</PackageIconUrl>
+    <Icon>https://www.stormid.com/content/img/icons/apple-touch-icon.png</Icon>
     <PackageProjectUrl>https://github.com/stormid/Nest-Queryify</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/stormid/Nest-Queryify/blob/master/LICENSE</PackageLicenseUrl>
+    <License>MIT</License>
     <PackageTags>elasticsearch nest</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NEST" Version="[5.3,6]" />
+    <PackageReference Include="NEST" Version="[6.8.2,7]" />
   </ItemGroup>
 
   <ItemGroup>
