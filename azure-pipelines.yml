@@ -1,0 +1,46 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    - release/*
+jobs:
+- job: Build
+  pool:
+    name: Storm-Build-Production
+  variables:
+    cake.buildTarget: 'CI'
+    build.configuration: 'Release'
+    cake.verbosity: 'Verbose'
+  steps:
+  - checkout: self
+    clean: true
+
+  - task: ms-codeanalysis.vss-microsoft-security-code-analysis.build-task-credscan.CredScan@2
+    displayName: 'Run CredScan'
+    continueOnError: true
+
+  - powershell: ./build.ps1 -Target "$(cake.buildTarget)" -Configuration "$(build.configuration)" -Verbosity "$(cake.verbosity)"
+    displayName: 'Cake Build'
+
+  - task: ms-codeanalysis.vss-microsoft-security-code-analysis.build-task-report.SdtReport@1
+    displayName: 'Create Security Analysis Report'
+    inputs:
+      AllTools: true
+      ToolLogsNotFoundAction: Error
+
+  - task: ms-codeanalysis.vss-microsoft-security-code-analysis.build-task-publishsecurityanalysislogs.PublishSecurityAnalysisLogs@2
+    displayName: 'Publish Security Analysis Logs'
+
+  - powershell: Write-Host '##vso[build.addbuildtag]PR'
+    displayName: 'Mark as PR Build'
+    condition: and(succeeded(), in(variables['Build.Reason'], 'PullRequest'))
+
+  - powershell: Write-Host '##vso[build.addbuildtag]Release'
+    displayName: 'Mark as Release Build'
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+
+  - task: ms-codeanalysis.vss-microsoft-security-code-analysis.build-task-postanalysis.PostAnalysis@1
+    displayName: 'Post Analysis'
+    inputs:
+      AllTools: true

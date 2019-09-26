@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nest.Queryify", "src\Nest.Queryify\Nest.Queryify.csproj", "{70F41783-BD20-4C56-941A-E370ED41D397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nest.Queryify", "src\Nest.Queryify\Nest.Queryify.csproj", "{70F41783-BD20-4C56-941A-E370ED41D397}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4F70AD04-ACBB-45A8-9361-B240FDAA6154}"
 EndProject
@@ -32,5 +32,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{70F41783-BD20-4C56-941A-E370ED41D397} = {4F70AD04-ACBB-45A8-9361-B240FDAA6154}
 		{641A95FD-C70B-4925-AD19-EC410E52BF6F} = {B851DD22-E4FB-4F42-9579-21FEDBAD11BD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {664DB264-C1D7-4060-8A9B-36D454900897}
 	EndGlobalSection
 EndGlobal

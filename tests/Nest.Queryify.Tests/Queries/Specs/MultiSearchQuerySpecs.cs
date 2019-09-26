@@ -23,8 +23,7 @@ namespace Nest.Queryify.Tests.Queries.Specs
         protected override void AssertExpectations()
         {
             Fixture.ShouldUseHttpMethod("POST");
-            Fixture.ShouldUseUri(new Uri("http://localhost:9200/_msearch"));
-            // Fixture.RespondsWith<MultiSearchResponse>().Should().NotBeNull();
+            Fixture.ShouldUseUri(new Uri("http://localhost:9200/_msearch?typed_keys=true"));
         }
 
         protected override ElasticClientQueryObject<IMultiSearchResponse> Query()
